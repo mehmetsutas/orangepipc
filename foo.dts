@@ -24,11 +24,11 @@
 		__overlay__ {
 			// Set up pins
 			ili9486_pins: ili9486_pins {
-				allwinner,pins = <117 112>; //"PA2", "PC7"; // Add DC/RS nad RST pins here
+				allwinner,pins = <71 78>; //"PA2", "PC7"; // Add DC/RS nad RST pins here //pi3 lts-><117 112> //Zero2-><71 78>
 				allwinner,function = "gpio_in";
 			};
 		ads7846_pins: ads7846_pins {
-				pins= <120>;//"PA1";
+				pins= <70>;//"PA1"; //pi3 lts-><120> //zero2-><70>
 				function = "irq";
      			 };
 		};
@@ -59,8 +59,8 @@
 				//              3rd number = DON'T CHANGE! (1 = ACTIVE_LOW, 0 = ACTIVE_HIGH)
 				// Example: PA2 = <&pio 0 2 1>
 				//          PC7 = <&pio 2 7 0>
-				reset-gpios = <&gpio 117 1>; // RST pin
-				dc-gpios = <&gpio 112 0>; // DC/RS pin
+				reset-gpios = <&gpio 71 1>; // RST pin //pi3 lts-><&gpio 117 1> //zero2-><&gpio 71 1>
+				dc-gpios = <&gpio 78 0>; // DC/RS pin //pi3 lts-><&gpio 112 0> //zero2-><&gpio 78 0>
 				debug = <0>;
 
 				init = <0x10000b0 0x00
@@ -86,7 +86,7 @@
 				spi-max-frequency = <2000000>;
 				interrupts = <120 2>; /* PA1 IRQ_TYPE_EDGE_FALLING */
 				interrupt-parent = <&gpio>;
-				pendown-gpio = <&gpio 120 0>; /* PA1 */
+				pendown-gpio = <&gpio 70 0>; /* PA1 */ ////pi3 lts-><&gpio 120 0> //zero2-><&gpio 70 0>
 				ti,x-min = /bits/ 16 <0>;
 				ti,y-min = /bits/ 16 <0>;
 				ti,x-max = /bits/ 16 <0x0FFF>;
