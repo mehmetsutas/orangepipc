@@ -2,10 +2,10 @@
 /plugin/;
 
 / {
-	compatible = "allwinner,sun8i-h3";
+	compatible = "allwinner,h616", "arm,sun50iw9p1";
 
 	fragment@0 {
-		target = <&spi0>;
+		target = <&spi1>;
 		__overlay__ {
 			status = "okay";
 
@@ -35,7 +35,7 @@
 	};
 
 	fragment@2 {
-		target = <&spi0>;
+		target = <&spi1>;
 		__overlay__ {
 			/* needed to avoid dtc warning */
 			#address-cells = <1>;
@@ -84,7 +84,7 @@
 				pinctrl-names = "default";
 				pinctrl-0 = <&ads7846_pins>;
 				spi-max-frequency = <2000000>;
-				interrupts = <120 2>; /* PA1 IRQ_TYPE_EDGE_FALLING */
+				interrupts = <70 2>; /* PA1 IRQ_TYPE_EDGE_FALLING */
 				interrupt-parent = <&gpio>;
 				pendown-gpio = <&gpio 70 0>; /* PA1 */ ////pi3 lts-><&gpio 120 0> //zero2-><&gpio 70 0>
 				ti,x-min = /bits/ 16 <0>;
