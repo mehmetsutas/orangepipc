@@ -5,37 +5,38 @@
 	compatible = "allwinner,sun50i-h6";
 
 	fragment@0 {
-		target = <&pio>;
+		target-path = "/aliases";
 		__overlay__ {
-			spi0_cs1: spi0_cs1 {
-				pins = "PA10";
-				function = "gpio_out";
-				output-high;
-			};
-
-			spi1_cs1: spi1_cs1 {
-				pins = "PA21";
-				function = "gpio_out";
-				output-high;
-			};
+			spi0 = "/soc/spi@5010000";
+			spi1 = "/soc/spi@5011000";
 		};
 	};
 
 	fragment@1 {
 		target = <&spi0>;
 		__overlay__ {
-			pinctrl-names = "default", "default";
-			pinctrl-1 = <&spi0_cs1>;
-			cs-gpios = <0>, <&pio 0 10 0>; /* PA10 */
+			#address-cells = <1>;
+			#size-cells = <0>;
+			spidev {
+				compatible = "spidev";
+				status = "disabled";
+				reg = <0>;
+				spi-max-frequency = <1000000>;
+			};
 		};
 	};
 
 	fragment@2 {
 		target = <&spi1>;
 		__overlay__ {
-			pinctrl-names = "default", "default";
-			pinctrl-1 = <&spi1_cs1>;
-			cs-gpios = <0>, <&pio 0 21 0>; /* PA21 */
+			#address-cells = <1>;
+			#size-cells = <0>;
+			spidev {
+				compatible = "spidev";
+				status = "disabled";
+				reg = <0>;
+				spi-max-frequency = <1000000>;
+			};
 		};
 	};
 };
