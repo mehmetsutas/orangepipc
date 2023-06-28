@@ -2,13 +2,13 @@
 /plugin/;
 
 / {
-	compatible = "allwinner,sun50i-h6", "arm,sun50iw6p1";
+	compatible = "allwinner,h616", "arm,sun50iw9p1", "allwinner,sun50i-h6", "arm,sun50iw6p1";
 
 	fragment@0 {
 		target = <&pio>;
 		__overlay__ {
-			spi1_cs1: spi1_cs1 {
-				pins = "PL8";
+			spi1_cs0: spi1_cs0 {
+				pins = "PC10";
 				function = "gpio_out";
 				output-high;
 			};
@@ -19,8 +19,8 @@
 		target = <&spi1>;
 		__overlay__ {
 			pinctrl-names = "default", "default";
-			pinctrl-1 = <&spi1_cs1>;
-			cs-gpios = <0>, <&pio 11 8 0>; /* PL8 */
+			pinctrl-1 = <&spi1_cs0>;
+			cs-gpios = <0>, <&pio 2 10 0>; /* PL8 */
 		};
 	};
 };
