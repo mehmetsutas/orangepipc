@@ -7,10 +7,23 @@
 	fragment@0 {
 		target = <&pio>;
 		__overlay__ {
-			spi1_cs0: spi1_cs0 {
+			spi1@2 {
+				pins = "PH6\0PH7\0PH8\0PH9";
+				pname = "spi1_sclk\0spi1_mosi\0spi1_miso";
+				function = "spi1";
+				muxsel = < 0x07 >;
+				drive = < 0x01 >;
+				pull = < 0x00 >;
+				phandle = < 0x84 >;
+			};
+			spi1@2 {
 				pins = "PC10";
-				function = "gpio_out";
-				output-high;
+				pname = "spi1_cs1";
+				function = "spi1";
+				muxsel = < 0x07 >;
+				drive = < 0x01 >;
+				pull = < 0x01 >;
+				phandle = < 0x85 >;
 			};
 		};
 	};
