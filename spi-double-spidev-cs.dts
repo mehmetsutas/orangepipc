@@ -2,7 +2,7 @@
 /plugin/;
 
 / {
-        compatible = "allwinner,h616", "allwinner,sun50i-h6", "arm,sun50iw6p1";
+        compatible = "allwinner,h616", "arm,sun50iw9p1", "allwinner,sun50i-h6", "arm,sun50iw6p1";
 
         fragment@0 {
                 target = <&spi1>;
