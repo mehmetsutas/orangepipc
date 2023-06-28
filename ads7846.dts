@@ -8,7 +8,7 @@
 		target = <&pio>;
 		__overlay__ {
 			ads7846_pins: ads7846_pins {
-				pins= "PD24";
+				pins= "PL2";
 				function = "irq";
            		};
 		};
@@ -28,8 +28,8 @@
 				pinctrl-0 = <&ads7846_pins>;
 				spi-max-frequency = <2000000>;
 				interrupt-parent = <&pio>;
-				interrupts = <3 24 2>; /* PD24 IRQ_TYPE_EDGE_FALLING */
-				pendown-gpio = <&pio 3 24 0>; /* PL3 */
+				interrupts = <11 2 2>; /* PD24 IRQ_TYPE_EDGE_FALLING */
+				pendown-gpio = <&pio 11 2 0>; /* PL3 */
 
 				/* driver defaults, optional */
 				ti,x-min = /bits/ 16 <0>;
