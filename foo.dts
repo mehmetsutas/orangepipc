@@ -5,27 +5,12 @@
 	compatible = "allwinner,h616";
 
 	fragment@0 {
-		target = <&spi1>;
-		__overlay__ {
-			status = "okay";
-
-			spidev@0{
-				status = "disabled";
-			};
-
-			spidev@1{
-				status = "disabled";
-			};
-		};
-	};
-
-	fragment@1 {
 		target = <&pio>;
 		__overlay__ {
 			// Set up pins
-			ili9486_pins: ili9486_pins {
-				allwinner,pins = "PC9", "PC6", "PC5"; // Add DC/RS nad RST pins here
-				allwinner,function = "gpio_in";
+			display_pins: display_pins {
+				pins = "PC9", "PC6", "PC5"; // Add DC/RS nad RST pins here
+				function = "gpio_out";
 			};
 			ads7846_pins: ads7846_pins {
 				pins= "PC7";
@@ -34,23 +19,23 @@
 		};
 	};
 
-	fragment@2 {
+	fragment@1 {
 		target = <&spi1>;
 		__overlay__ {
 			/* needed to avoid dtc warning */
 			#address-cells = <1>;
 			#size-cells = <0>;
 
-			ili9486: ili9486@0{
-				compatible = "ilitek,ili9486";
+			display: display@0{
+				compatible = "ilitek,ili9488";
 				reg = <0>;
 				pinctrl-names = "default";
-				pinctrl-0 = <&ili9486_pins>;
+				pinctrl-0 = <&display_pins>;
 
-				spi-max-frequency = <16000000>;
-				txbuflen = <32768>;
+				spi-max-frequency = <65000000>;
+				txbuflen = <65536>;
 				rotate = <90>;
-				bgr = <0>;
+				bgr = <1>;
 				fps = <30>;
 				buswidth = <8>;
 				regwidth = <16>;
@@ -99,12 +84,12 @@
 		};
 	};
 	__overrides__ {
-		speed = <&ili9486>,"spi-max-frquency:0";
-		txbuflen = <&ili9486>,"txbuflen:0";
-		rotate = <&ili9486>,"rotate:0";
-		fps = <&ili9486>,"fps:0";
-		bgr = <&ili9486>,"bgr:0";
-		debug = <&ili9486>,"debug:0";
+		speed = <&display>,"spi-max-frquency:0";
+		txbuflen = <&display>,"txbuflen:0";
+		rotate = <&display>,"rotate:0";
+		fps = <&display>,"fps:0";
+		bgr = <&display>,"bgr:0";
+		debug = <&display>,"debug:0";
 		swapxy = <&tft35a_ts>,"ti,swap-xy?";
 	};	
 };
