@@ -2,10 +2,10 @@
 /plugin/;
 
 / {
-	compatible = "allwinner,h616", "arm,sun50iw9p1";
+	compatible = "allwinner,h616";
 
 	fragment@0 {
-		target = <&spi1>;
+		target = <&spi0>;
 		__overlay__ {
 			status = "okay";
 
@@ -23,12 +23,12 @@
 		target = <&pio>;
 		__overlay__ {
 			// Set up pins
-			ili9486_pins: ili9486_pins {
-				allwinner,pins = <71 78>; //"PA2", "PC7"; // Add DC/RS nad RST pins here //pi3 lts-><117 112> //Zero2-><71 78>
+			ili9488_pins: ili9488_pins {
+				allwinner,pins = "PC9", "PC6", "PC5"; // Add DC/RS nad RST pins here
 				allwinner,function = "gpio_in";
 			};
-		ads7846_pins: ads7846_pins {
-				pins= <70>;//"PA1"; //pi3 lts-><120> //zero2-><70>
+			ads7846_pins: ads7846_pins {
+				pins= "PC7";
 				function = "irq";
      			 };
 		};
@@ -41,11 +41,11 @@
 			#address-cells = <1>;
 			#size-cells = <0>;
 
-			ili9486: ili9486@0{
+			ili9488: ili9488@0{
 				compatible = "ilitek,ili9486";
 				reg = <0>;
 				pinctrl-names = "default";
-				pinctrl-0 = <&ili9486_pins>;
+				pinctrl-0 = <&ili9488_pins>;
 
 				spi-max-frequency = <16000000>;
 				txbuflen = <32768>;
@@ -59,8 +59,9 @@
 				//              3rd number = DON'T CHANGE! (1 = ACTIVE_LOW, 0 = ACTIVE_HIGH)
 				// Example: PA2 = <&pio 0 2 1>
 				//          PC7 = <&pio 2 7 0>
-				reset-gpios = <&gpio 71 1>; // RST pin //pi3 lts-><&gpio 117 1> //zero2-><&gpio 71 1>
-				dc-gpios = <&gpio 78 0>; // DC/RS pin //pi3 lts-><&gpio 112 0> //zero2-><&gpio 78 0>
+				reset-gpios = <&pio 2 9 1>; // RST pin
+				dc-gpios = <&pio 2 6 0>; // DC/RS pin
+				led-gpios = <&pio 2 5 0> // LED pin
 				debug = <0>;
 
 				init = <0x10000b0 0x00
@@ -84,9 +85,9 @@
 				pinctrl-names = "default";
 				pinctrl-0 = <&ads7846_pins>;
 				spi-max-frequency = <2000000>;
-				interrupts = <70 2>; /* PA1 IRQ_TYPE_EDGE_FALLING */
-				interrupt-parent = <&gpio>;
-				pendown-gpio = <&gpio 70 0>; /* PA1 */ ////pi3 lts-><&gpio 120 0> //zero2-><&gpio 70 0>
+				interrupts = <2 7 2>; /* PA1 IRQ_TYPE_EDGE_FALLING */
+				interrupt-parent = <&pio>;
+				pendown-gpio = <&pio 2 7 0>; /* PA1 */
 				ti,x-min = /bits/ 16 <0>;
 				ti,y-min = /bits/ 16 <0>;
 				ti,x-max = /bits/ 16 <0x0FFF>;
@@ -98,12 +99,12 @@
 		};
 	};
 	__overrides__ {
-		speed = <&ili9486>,"spi-max-frquency:0";
-		txbuflen = <&ili9486>,"txbuflen:0";
-		rotate = <&ili9486>,"rotate:0";
-		fps = <&ili9486>,"fps:0";
-		bgr = <&ili9486>,"bgr:0";
-		debug = <&ili9486>,"debug:0";
+		speed = <&ili9488>,"spi-max-frquency:0";
+		txbuflen = <&ili9488>,"txbuflen:0";
+		rotate = <&ili9488>,"rotate:0";
+		fps = <&ili9488>,"fps:0";
+		bgr = <&ili9488>,"bgr:0";
+		debug = <&ili9488>,"debug:0";
 		swapxy = <&tft35a_ts>,"ti,swap-xy?";
 	};	
 };
