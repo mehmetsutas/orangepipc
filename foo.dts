@@ -23,7 +23,7 @@
 		target = <&pio>;
 		__overlay__ {
 			// Set up pins
-			ili9488_pins: ili9488_pins {
+			ili9486_pins: ili9486_pins {
 				allwinner,pins = "PC9", "PC6", "PC5"; // Add DC/RS nad RST pins here
 				allwinner,function = "gpio_in";
 			};
@@ -41,11 +41,11 @@
 			#address-cells = <1>;
 			#size-cells = <0>;
 
-			ili9488: ili9488@0{
+			ili9486: ili9486@0{
 				compatible = "ilitek,ili9486";
 				reg = <0>;
 				pinctrl-names = "default";
-				pinctrl-0 = <&ili9488_pins>;
+				pinctrl-0 = <&ili9486_pins>;
 
 				spi-max-frequency = <16000000>;
 				txbuflen = <32768>;
@@ -99,12 +99,12 @@
 		};
 	};
 	__overrides__ {
-		speed = <&ili9488>,"spi-max-frquency:0";
-		txbuflen = <&ili9488>,"txbuflen:0";
-		rotate = <&ili9488>,"rotate:0";
-		fps = <&ili9488>,"fps:0";
-		bgr = <&ili9488>,"bgr:0";
-		debug = <&ili9488>,"debug:0";
+		speed = <&ili9486>,"spi-max-frquency:0";
+		txbuflen = <&ili9486>,"txbuflen:0";
+		rotate = <&ili9486>,"rotate:0";
+		fps = <&ili9486>,"fps:0";
+		bgr = <&ili9486>,"bgr:0";
+		debug = <&ili9486>,"debug:0";
 		swapxy = <&tft35a_ts>,"ti,swap-xy?";
 	};	
 };
